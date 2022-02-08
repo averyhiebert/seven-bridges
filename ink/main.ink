@@ -15,6 +15,9 @@ VAR intro = true // TODO Avoid this using a separate knot
 VAR ossuary_key = false
 VAR cathedral_key = false
 
+VAR ossuary_locked = true
+VAR cathedral_passage_locked = true
+
 // TODO Constants for "look around," "go to...", etc.
 // TODO Winning
 // TODO change "shore" to "bank"
@@ -156,12 +159,20 @@ To the west, a wooden bridge connects to the island of Kneiphof.
 = ossuary_exterior
 // TODO Lock/unlock the door?
 The ossuary is a plain stone building.  The only adornment is a Latin inscription over the entrance.
-The oaken door is locked{ossuary_key:, but the iron key you found fits the lock perfectly|.} ->ossuary_options
+The oaken door is {ossuary_locked:locked{ossuary_key:, but the iron key you found fits the lock perfectly|}|unlocked}. ->ossuary_options
 = ossuary_options
- + [Read the inscription.]
+ + {ossuary_locked and ossuary_key}[Unlock the ossuary.]
+   The ossuary is now unlocked.
+   ~ ossuary_locked = false
+   -> ossuary_options
+ + {not ossuary_locked}[Lock the ossuary.]
+   The ossuary is locked.
+   ~ ossuary_locked = true
+   -> ossuary_options
+ * [Read the inscription.]
    The inscription says MELIUS EST IRE AD DOMUM LUCTUS QUAM AD DOMUM CONVIVII.
    -> ossuary_options
- + {ossuary_key}Enter the ossuary.
+ + {not ossuary_locked}Enter the ossuary.
  + [Go back.] -> Lomse
 
 === South_Shore ==================================================
