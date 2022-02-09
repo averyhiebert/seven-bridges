@@ -18,6 +18,8 @@ VAR cathedral_key = false
 VAR ossuary_locked = true
 VAR cathedral_passage_locked = true
 
+VAR drachmas = 0
+
 // TODO Constants for "look around," "go to...", etc.
 // TODO Winning
 // TODO change "shore" to "bank"
@@ -211,7 +213,9 @@ Unless...
    * [Attempt to swim]
      In a desperate last attempt, you leap into the Pregel river.
      You are immediately overwhelmed by the cold and the current.  The world fades into darkness as you sink into the inky depths.
-     // TODO Varied flavour text
+   -
+   // TODO Varied flavour text
+   * Try again...
      # RESTART
 -> END
 
@@ -265,8 +269,13 @@ You stand before an imposing suspension bridge of great iron girders, held toget
 You stand before a marble bridge in classical Doric style.<>
 {bridge_crossed?B:  The way is barred by a crowd of living statues.|  Lifelike statues line both sides of the bridge.}
   * [Cross the bridge]
-    You start to walk across the marble bridge.
-    As you cross, the statues begin to move, stiffly and clumsily but with a sense of purpose.  They climb down onto the bridge behind you, barring the way back.
+    You start to walk across the marble bridge.  Halfway across you spot spot something glinting on the ground.
+    ** [Grab it.]
+        You pick up the object.  It appears to be some sort of coin, irregularly shaped and bearing an inscription in ancient Greek.
+        ~drachmas += 1
+    ** [Leave it.]
+    --
+    As you reach the other side the statues begin to move, stiffly and clumsily but with a sense of purpose.  They climb down onto the bridge behind you, barring the way back.
     ~bridge_crossed += B
     -> to
   + [Go back] -> from
