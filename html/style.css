@@ -1,0 +1,67 @@
+/* Global stuff: */
+body{
+   background-color:#f2e6d8;
+   color:#0d0000;
+}
+
+a {
+   color:#d95763;
+   text-decoration: none;
+   font-weight:bold;
+}
+
+a:hover{
+   text-decoration: underline;
+}
+
+/* Specific classes: */
+
+.choice{
+    text-align:center;
+}
+
+h3.small-title {
+    font-size: 9pt;
+    font-family: sans-serif;
+    text-align: center;
+    font-weight: 700;
+    width: 100%;
+}
+
+/* Contains all the inner stuff, centers it horizontally. */
+.mainContainer{
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* The main map. */
+#map{
+    display: block;
+    width:60%;
+    height:0;
+    padding-bottom: 60%;
+    margin: 0 auto;
+    position: relative;
+    background-image: url("images/background.png");
+    background-size:cover;
+}
+
+/* All of the "bridge already crossed" overlays. */
+.overlay{
+    position:absolute;
+    top:0;
+    left:0;
+    margin:0;
+    padding:0;
+    width:100%;
+    height:100%;
+    background-size:cover;
+}
+
+#bridge_e{
+    background-image: url('images/overlay_temp.png');
+    /*display: none;*/
+    /*display: block;*/
+}
