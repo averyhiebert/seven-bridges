@@ -86,7 +86,7 @@ To the east, a wooden bridge leads to the island of Lomse.
 = options
  + [Look around]
    -> Kneiphof.long
- + {long}[Go to...]
+ + {long}Go to...[]
  ++ the Cathedral
  ++ the bridge of iron #CLEAR
     -> Bridges.iron(-> Kneiphof, ->North_Shore)
@@ -117,7 +117,7 @@ To the southeast, a drawbridge leads to the island of Lomse.  The bridge is {bri
 = options
  + [Look around]
    -> long
- + {long}[Go to...]
+ + {long}Go to...[]
  ++ the bridge of iron #CLEAR
     -> Bridges.iron(->North_Shore, -> Kneiphof)
  ++ the bridge of marble #CLEAR
@@ -147,7 +147,7 @@ To the west, a wooden bridge connects to the island of Kneiphof.
 = options
  + [Look around]
    -> long
- + {long}[Go to...]
+ + {long}Go to...[]
  ++ the ossuary # CLEAR
     -> ossuary_exterior
  ++ the drawbridge # CLEAR
@@ -175,7 +175,14 @@ The oaken door is {ossuary_locked:locked{ossuary_key:, but the iron key you foun
    The inscription says MELIUS EST IRE AD DOMUM LUCTUS QUAM AD DOMUM CONVIVII.
    -> ossuary_options
  + {not ossuary_locked}Enter the ossuary.
+   -> ossuary_interior
  + [Go back.] -> Lomse
+ 
+= ossuary_interior
+You are inside a dark stone room.  Against each wall is a tightly-packed stack of ancient bones.  The door casts a beam of light on a pile of skulls grinning against the back wall.
+In the floor is a trapdoor leading to a dark passage.
+ + Enter the passage.
+ + [Go back.] -> ossuary_exterior # CLEAR
 
 === South_Shore ==================================================
 You are on the South Shore of the river Pregel.
@@ -198,14 +205,14 @@ To the north east, a rope bridge leads to the island of Lomse.
 = options
  + [Look around]
    -> long
- + {long}[Go to...]
+ + {long}Go to...[]
  ++ the stone bridge # CLEAR
     -> Bridges.stone(->South_Shore, ->Kneiphof)
  ++ the brick bridge # CLEAR
     -> Bridges.brick(->South_Shore, ->Kneiphof)
  ++ the rope bridge # CLEAR
     -> Bridges.rope(->South_Shore, ->Lomse)
- ++ [nowhere] -> Example // Cancel? Never mind? What phrasing is best?
+ ++ [nowhere] -> South_Shore
 
 === game_over(island) ======================================================
 In the distance, an iron bell tolls mournfully.  You realize that you are trapped here, with no way to reach the remaining uncrossed bridges{island != kneiphof: or return to the Cathedral}.
