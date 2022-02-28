@@ -85,6 +85,8 @@
                     if( tag == "RESTART" ) {
                         restart();
                         return;
+                    }else if(tag=="CLEAR"){
+                        scrollToTop();
                     }
                 }
             }
@@ -137,10 +139,13 @@
         // Extend height to fit
         // We do this manually so that removing elements and creating new ones doesn't
         // cause the height (and therefore scroll) to jump backwards temporarily.
-        storyContainer.style.height = contentBottomEdgeY()+"px";
-
+        //storyContainer.style.height = contentBottomEdgeY()+"px";
+        
+        /*
         if( !firstTime )
-            scrollDown(previousBottomEdge);
+            //scrollDown(previousBottomEdge);
+            newScrollDown();
+        */
     }
 
     function restart() {
@@ -150,7 +155,8 @@
 
         continueStory(true);
 
-        outerScrollContainer.scrollTo(0, 0);
+        //outerScrollContainer.scrollTo(0, 0);
+        scrollToTop();
     }
 
     // -----------------------------------
@@ -165,6 +171,7 @@
 
     // Scrolls the page down, but no further than the bottom edge of what you could
     // see previously, so it doesn't go too far.
+    // NOTE (AVERY): CURRENTLY NOT IN USE, I'M REPLACING THIS
     function scrollDown(previousBottomEdge) {
 
         // Line up top of screen with the bottom of where the previous content ended
@@ -187,6 +194,34 @@
             if( t < 1 ) requestAnimationFrame(step);
         }
         requestAnimationFrame(step);
+    }
+
+    function newScrollDown(){
+        // Scroll the main story container down.
+        // TODO: smarter scrolling behaviour, 
+        //  mimicking the "classic" page-wide behaviour.
+        var storyDiv = document.getElementById("story");
+
+        var start = storyDiv.scrollTop;
+        var target = storyDiv.scrollHeight;
+        var dist = target - start;
+        var duration = 300 + 300*dist/100;
+        var startTime = null;
+
+        function step(time) {
+            if( startTime == null ) startTime = time;
+            var t = (time-startTime) / duration;
+            var lerp = 3*t*t - 2*t*t*t; // ease in/out
+            storyDiv.scrollTo(0, (1.0-lerp)*start + lerp*target);
+            if( t < 1 ) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+    }
+
+    // Scroll the story back to the top.
+    function scrollToTop(){
+        var storyDiv = document.getElementById("story");
+        storyDiv.scrollTo(0,0)
     }
 
     // The Y coordinate of the bottom end of all the story content, used

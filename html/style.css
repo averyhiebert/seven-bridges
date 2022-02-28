@@ -28,24 +28,79 @@ h3.small-title {
     width: 100%;
 }
 
+.topHalf{
+    margin:0;
+    height:35%;
+}
+
+/* Meant to match shape of overall viewport. */
+.outerContainer{
+   position:fixed;
+   top: 0;
+   left: 0;
+   width:100%;
+   height:100%;
+   /*border:thin solid blue;*/ /*For visualization*/
+}
+
 /* Contains all the inner stuff, centers it horizontally. */
 .mainContainer{
     display: block;
     width: 100%;
+    height: 100%;
+    /*border: thin solid red;*/
     max-width: 600px;
     margin: 0 auto;
+    /*padding-left:5px;
+    padding-right:5px;*/
 }
 
 /* The main map. */
 #map{
-    display: block;
-    width:60%;
+    position:relative;
+    width: 100%;
     height:0;
-    padding-bottom: 60%;
-    margin: 0 auto;
-    position: relative;
+    padding-bottom:100%;
+    /*margin: 0 auto;*/
+    /*background-color:rgba(0,255,0,0.5);*/
     background-image: url("images/background.png");
     background-size:cover;
+}
+
+
+/* Spacer image + filler because CSS is a nightmare. See:
+ https://stackoverflow.com/questions/22673008/css-make-div-width-proportional-to-height
+*/
+.heightLimit{
+    position: absolute;
+    top:0;
+    left:0;
+    height:100%;
+    width:auto;
+    max-width:100%;
+    overflow:hidden;
+}
+.spacer{
+    width:auto;
+    max-height:100%;
+    visibility:hidden;
+}
+.filler{
+  position: absolute;
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
+}
+
+#map-holder{
+    position:relative;
+    height:100%;
+    width:auto;
+    max-width:100%;
+    /*background-color:cyan;*/
+    text-align:center;
+    /*overflow:hidden;*/
 }
 
 /* All of the "bridge already crossed" overlays. */
@@ -62,6 +117,18 @@ h3.small-title {
 
 #bridge_e{
     background-image: url('images/overlay_temp.png');
-    /*display: none;*/
-    /*display: block;*/
+}
+
+/* Contains the story itself. */
+.storyContainer{
+    height:50%;
+    margin-top:5px;
+    margin-left:0;
+    margin-right:0;
+    padding-left:5px;
+    padding-right:5px;
+    overflow-y:scroll;
+    scrollbar-width:thin;
+    /*scrollbar-color: #d95763 #f2e6d8; */
+    scrollbar-color: #d9b1a3 #f2e6d8; 
 }

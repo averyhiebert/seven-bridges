@@ -90,7 +90,7 @@ To the east, a wooden bridge leads to the island of Lomse.
 = options
  + [Look around]
    -> Kneiphof.long
- + {long}Go to...[]
+ + {long}Go to...[] #CLEAR
  ++ the Cathedral
  ++ the bridge of iron
     -> Bridges.iron(-> Kneiphof, ->North_Shore)
@@ -122,7 +122,7 @@ To the southeast, a drawbridge leads to the island of Lomse.  The bridge is {bri
 = options
  + [Look around]
    -> long
- + {long}Go to...[]
+ + {long}Go to...[] #CLEAR
  ++ the bridge of iron
     -> Bridges.iron(->North_Shore, -> Kneiphof)
  ++ the bridge of marble
@@ -153,7 +153,7 @@ To the west, a wooden bridge connects to the island of Kneiphof.
 = options
  + [Look around]
    -> long
- + {long}Go to...[]
+ + {long}Go to...[] #CLEAR
  ++ the ossuary
     -> ossuary_exterior
  ++ the drawbridge
@@ -175,7 +175,7 @@ The oaken door is {ossuary_locked:locked{ossuary_key:, but the iron key you foun
    ~ ossuary_locked = false
    -> ossuary_options
  + {not ossuary_locked}[Lock the ossuary.]
-   The ossuary is locked.
+   The ossuary is now locked.
    ~ ossuary_locked = true
    -> ossuary_options
  * [Read the inscription.]
@@ -187,10 +187,10 @@ The oaken door is {ossuary_locked:locked{ossuary_key:, but the iron key you foun
  
 = ossuary_interior
 #CLEAR
-You are inside a dark stone room.  Against each wall is a tightly-packed stack of ancient bones.  The door casts a beam of light on a pile of skulls grinning against the back wall.
+You are inside a dark stone room.  Against each wall is a tightly-packed stack of human bones.  The door casts a beam of light on a pile of skulls grinning against the back wall.
 In the floor is a trapdoor leading to a dark passage.
  + Enter the passage.
- + [Go back.] -> ossuary_exterior
+ + [Go back.] -> Lomse
 
 === South_Shore ==================================================
 #CLEAR
@@ -215,7 +215,7 @@ To the north east, a rope bridge leads to the island of Lomse.
 = options
  + [Look around]
    -> long
- + {long}Go to...[]
+ + {long}Go to...[] #CLEAR
  ++ the stone bridge
     -> Bridges.stone(->South_Shore, ->Kneiphof)
  ++ the brick bridge
@@ -261,7 +261,7 @@ You stand before {bridge_crossed?F:the crumbling remains of a brick bridge|a bri
 You stand before a narrow rope bridge hanging low over the rushing river.<>
 {bridge_crossed?G:  The bridge is swarming with hostile crows.}
   * [Cross the bridge]
-    You begin to cross the precarious rope bridge.  Behind you, a dense swarm of crows descends, covering the bridge completely.
+    You begin to cross the precarious rope bridge.  Behind you a dense swarm of crows descends, covering the bridge completely.
     ~ bridge_crossed += G
     ** Continue...
     --
