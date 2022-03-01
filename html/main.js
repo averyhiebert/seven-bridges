@@ -72,6 +72,18 @@
                 else if( splitTag && splitTag.property == "CLASS" ) {
                     customClasses.push(splitTag.val);
                 }
+                
+                // Custom
+                // SET_BG: image.png
+                else if( splitTag && splitTag.property == "SET_BG"){
+                    setMapImage(splitTag.val);
+                }
+
+                // Custom
+                // BRIDGE_CROSSED: bridge_id
+                else if( splitTag && splitTag.property == "BRIDGE_CROSSED"){
+                    showBridge(splitTag.val);
+                }
 
                 // CLEAR - removes all existing content.
                 // RESTART - clears everything and restarts the story from the beginning
@@ -152,6 +164,14 @@
         story.ResetState();
 
         setVisible(".header", true);
+    
+        // Reset map background
+        setMapImage("kneiphof.png")
+        // Re-hide all bridges
+        for (x of "abcdefg"){
+            var bridge = document.getElementById(`bridge_${x}`);
+            bridge.style.visibility = "hidden";
+        }
 
         continueStory(true);
 
@@ -270,6 +290,17 @@
         }
 
         return null;
+    }
+
+    // Set the bg image for the main map
+    function setMapImage(image_name){
+        var map = document.getElementById("map");
+        map.style.backgroundImage = `url('images/${image_name}')`;
+    }
+
+    function showBridge(bridge_id){
+        var bridge = document.getElementById(bridge_id);
+        bridge.style.visibility = "visible";
     }
 
 })(storyContent);

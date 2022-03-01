@@ -60,7 +60,7 @@ a:hover{
     left:0;
     right:0;
     bottom:0;
-    background-image: url("images/background.png");
+    background-image: url("images/kneiphof.png");
     background-size:cover;
 }
 
@@ -77,8 +77,32 @@ a:hover{
     background-size:cover;
 }
 
+#bridge_a{
+    background-image: url('images/bridge_a.png');
+    visibility:hidden;
+}
+#bridge_b{
+    background-image: url('images/bridge_b.png');
+    visibility:hidden;
+}
+#bridge_c{
+    background-image: url('images/bridge_c.png');
+    visibility:hidden;
+}
+#bridge_d{
+    background-image: url('images/bridge_d.png');
+    visibility:hidden;
+}
 #bridge_e{
-    background-image: url('images/overlay_temp.png');
+    background-image: url('images/bridge_e.png');
+    visibility:hidden;
+}
+#bridge_f{
+    background-image: url('images/bridge_f.png');
+    visibility:hidden;
+}
+#bridge_g{
+    background-image: url('images/bridge_g.png');
     visibility:hidden;
 }
 

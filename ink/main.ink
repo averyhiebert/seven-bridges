@@ -67,6 +67,7 @@ Long description here
 //  but make all go-to locations conditional on having seen them at least once.
 
 === Kneiphof ====================================================
+# SET_BG: kneiphof.png
 You are on the island of Kneiphof. #CLEAR
 -> check_win_loss(kneiphof) ->
 -> options
@@ -106,6 +107,7 @@ To the east, a wooden bridge leads to the island of Lomse.
 
 
 === North_Shore ======================================================
+# SET_BG: north_shore.png
 You are on the North Shore of the river Pregel. #CLEAR
 -> check_win_loss(north) ->
 -> options
@@ -133,6 +135,7 @@ To the southeast, a drawbridge leads to the island of Lomse.  The bridge is {bri
 
 
 === Lomse =======================================================
+# SET_BG: lomse.png
 You are on the island of Lomse. #CLEAR
 -> check_win_loss(lomse) ->
 -> options
@@ -193,8 +196,8 @@ In the floor is a trapdoor leading to a dark passage.
  + [Go back.] -> Lomse
 
 === South_Shore ==================================================
-#CLEAR
-You are on the South Shore of the river Pregel.
+# SET_BG: south_shore.png
+You are on the South Shore of the river Pregel. #CLEAR
 -> check_win_loss(south) ->
 -> options
 
@@ -228,7 +231,7 @@ To the north east, a rope bridge leads to the island of Lomse.
 In the distance, an iron bell tolls mournfully.  You realize that you are trapped here, with no way to reach the remaining uncrossed bridges{island != kneiphof: or return to the Cathedral}.
 Unless...
    * [Attempt to swim]
-     In a desperate last attempt, you leap into the Pregel river.
+     You leap into the Pregel river in a desperate final attempt to fulfill your task.
      You are immediately overwhelmed by the cold and the current.  The world fades into darkness as you sink into the inky depths.
    -
    // TODO Varied flavour text
@@ -251,6 +254,7 @@ You stand before {bridge_crossed?F:the crumbling remains of a brick bridge|a bri
     --  
     As you reach the other side and step off the bridge you hear the wailing of a far-off wind.  The bridge begins to age rapidly.  The bricks crumble as they are overtaken by moss, erosion, and the unrelenting march of time.  Soon, only an impassible ruin remains.
     ~ bridge_crossed += F
+    # BRIDGE_CROSSED: bridge_f
     ** Continue...
     --
     -> to
@@ -263,6 +267,7 @@ You stand before a narrow rope bridge hanging low over the rushing river.<>
   * [Cross the bridge]
     You begin to cross the precarious rope bridge.  Behind you a dense swarm of crows descends, covering the bridge completely.
     ~ bridge_crossed += G
+    # BRIDGE_CROSSED: bridge_g
     ** Continue...
     --
     -> to
@@ -276,6 +281,7 @@ You stand before an arched bridge of ancient masonry.<>
   * [Cross the bridge]
     You begin to cross the bridge.  As soon as you pass the halfway point the scent of sulfur fills the air and a wall of blue flame crackles into being behind you.
     ~ bridge_crossed += E
+    # BRIDGE_CROSSED: bridge_e
     ** Continue...
     --
     -> to 
@@ -288,7 +294,8 @@ You stand before an imposing suspension bridge of great iron girders, held toget
   * [Cross the bridge]
     You begin to cross the iron bridge.
     As you step off the other side a gate slams shut behind you with a heavy clang.
-    ~bridge_crossed += A 
+    ~bridge_crossed += A     
+    # BRIDGE_CROSSED: bridge_a
     ** Continue...
     --
     -> to
@@ -307,6 +314,7 @@ You stand before a marble bridge in classical Doric style.<>
     --
     As you reach the other side of the bridge the statues begin to move, stiffly and clumsily but with a sense of purpose.  They climb down onto the bridge behind you, barring the way back.
     ~bridge_crossed += B
+    # BRIDGE_CROSSED: bridge_b
     ** Continue...
     --
     -> to
@@ -320,6 +328,7 @@ You stand before a drawbridge, a marvel of modern engineering.<>
     You cross the bridge.
     As you step off the other side, gears and pulleys begin to rumble and screech as a great mechanism awakes.  The bridge rises, slowly but surely, until it is impassible.
     ~bridge_crossed += C
+    # BRIDGE_CROSSED: bridge_c
     ** Continue...
     --
     -> to
@@ -333,6 +342,7 @@ You stand before a rickety wooden bridge.<>
     You cross the bridge.
     The dead wood beneath your feet comes back to life as you walk, sprouting leafy branches and thick, thorny vines that quickly block the pathway behind you.
     ~bridge_crossed += D
+    # BRIDGE_CROSSED: bridge_d
     ** Continue...
     --
    -> to 
