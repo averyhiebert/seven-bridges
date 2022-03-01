@@ -112,7 +112,7 @@ You are on the North Shore of the river Pregel. #CLEAR
 
 = long
 #CLEAR
-You stand on the North Shore of the river Pregel.  Above you stand the fortifications of Konigsberg Castle.  Moss clings to the cracks in the ancient walls.
+You are on the North Shore of the river Pregel.  The fortifications of Konigsberg Castle tower over you.  Moss clings to the cracks in the ancient walls.
 
 To the southwest, a bridge of iron and a bridge of marble lead to the island of Kneiphof.
 
