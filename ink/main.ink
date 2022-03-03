@@ -191,9 +191,25 @@ The oaken door is {ossuary_locked:locked{ossuary_key:, but the iron key you foun
 = ossuary_interior
 #CLEAR
 You are inside a dark stone room.  Against each wall is a tightly-packed stack of human bones.  The door casts a beam of light on a pile of skulls grinning against the back wall.
-In the floor is a trapdoor leading to a dark passage.
- + Enter the passage.
+In the floor is a trapdoor leading to a dark tunnel.
+ + Enter the tunnel.
+   -> tunnel_from_ossuary
  + [Go back.] -> Lomse
+
+= tunnel_from_ossuary
+#CLEAR
+The tunnel is long and damp, and leads quite a ways to the west.  The walls are lined with sarcophagi; this appears to be some sort of catacomb.
+Eventually you reach the end of the passage.  If you had to guess, you're somewhere under the cathedral.  There is a trapdoor in the roof above you.
+Behind you, the passage begins to fill with water.
+ * [Open the trapdoor]
+ -
+There seems to be something heavy on top of the trap door, preventing it from opening. //TODO Make trapdoor openable at Cathedral
+ * Oh no...
+ -
+ The tunnel continues filling with water.  You try to keep your head up, but eventually there is no air left to breath and you drown in the darkness.
+ * Try again...
+   # RESTART
+   -> END
 
 === South_Shore ==================================================
 # SET_BG: south_shore.png
@@ -237,7 +253,7 @@ Unless...
    // TODO Varied flavour text
    * Try again...
      # RESTART
--> END
+   -> END
 
 
 === Bridges =========================================================
