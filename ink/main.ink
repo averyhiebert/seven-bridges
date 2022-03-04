@@ -16,7 +16,8 @@ VAR ossuary_key = false
 VAR cathedral_key = false
 
 VAR ossuary_locked = true
-VAR cathedral_passage_locked = true
+VAR cathedral_locked = true
+VAR cathedral_passage_blocked = true
 
 VAR drachmas = 0
 
@@ -93,6 +94,7 @@ To the east, a wooden bridge leads to the island of Lomse.
    -> Kneiphof.long
  + {long}Go to...[] #CLEAR
  ++ the Cathedral
+    -> cathedral_door
  ++ the bridge of iron
     -> Bridges.iron(-> Kneiphof, ->North_Shore)
  ++ the bridge of marble
@@ -105,6 +107,40 @@ To the east, a wooden bridge leads to the island of Lomse.
     -> Bridges.stone(->Kneiphof, ->South_Shore)
  ++ [nowhere] -> Kneiphof
 
+= cathedral_door
+# CLEAR
+The cathedral is tall and imposing, with a bell tower rising above an asymmetric peaked roof lined on one side with buttresses.
+The door is elaborately carved with apocalyptic imagery. It is {cathedral_locked:locked{cathedral_key:, but the golden key you found fits perfectly.|.}|unlocked.}
+-> cathedral_door_options
+= cathedral_door_options
+  + {cathedral_key and cathedral_locked}[Unlock the door.]
+    The cathedral door is now unlocked.
+    ~ cathedral_locked = false
+    -> cathedral_door_options
+  + {cathedral_key and not cathedral_locked}[Lock the door.]
+    The cathedral door is now locked.
+    ~ cathedral_locked = true
+    -> cathedral_door_options
+  + {not cathedral_locked}Enter the cathedral.
+    -> cathedral_interior
+  + [Go back]
+    -> Kneiphof
+
+= cathedral_interior
+The cathedral is magnificent.  Colourful windows reach up to vaulted ceilings high overhead.
+One end of the cathedral is occupied by an elaborate pipe organ.  Nearer to the entrance, a cedar coffin lies in an alcove.  {cathedral_passage_blocked:It looks slightly out of place.|It has been moved to the side, exposing a trapdoor.}
+-> cathedral_options
+= cathedral_options
+  + Investigate the pipe organ.
+  + {cathedral_passage_blocked}[Investigate the coffin.]
+    You move the coffin slightly, revealing a trapdoor in the floor beneath it.
+    ~ cathedral_passage_blocked = false
+    -> cathedral_options
+  + {not cathedral_passage_blocked}[Open the trapdoor.]
+    The trapdoor seems to be locked from the other side.
+    -> cathedral_options
+  + Leave the cathedral.
+    -> Kneiphof
 
 === North_Shore ======================================================
 # SET_BG: north_shore.png
