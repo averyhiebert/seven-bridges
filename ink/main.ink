@@ -18,6 +18,7 @@ VAR cathedral_key = false
 VAR ossuary_locked = true
 VAR cathedral_locked = true
 VAR cathedral_passage_blocked = true
+VAR tunnel_flooded = false
 
 VAR drachmas = 0
 
@@ -109,7 +110,7 @@ To the east, a wooden bridge leads to the island of Lomse.
 
 = cathedral_door
 # CLEAR
-The cathedral is tall and imposing, with a bell tower rising above an asymmetric peaked roof lined on one side with buttresses.
+The cathedral is tall and imposing, with a bell tower rising above an asymmetric peaked roof.
 The door is elaborately carved with apocalyptic imagery. It is {cathedral_locked:locked{cathedral_key:, but the golden key you found fits perfectly.|.}|unlocked.}
 -> cathedral_door_options
 = cathedral_door_options
@@ -127,8 +128,9 @@ The door is elaborately carved with apocalyptic imagery. It is {cathedral_locked
     -> Kneiphof
 
 = cathedral_interior
+#CLEAR
 The cathedral is magnificent.  Colourful windows reach up to vaulted ceilings high overhead.
-One end of the cathedral is occupied by an elaborate pipe organ.  Nearer to the entrance, a cedar coffin lies in an alcove.  {cathedral_passage_blocked:It looks slightly out of place.|It has been moved to the side, exposing a trapdoor.}
+The far end of the cathedral is occupied by an elaborate pipe organ.  Nearer to the entrance, a cedar coffin lies in an alcove.  {cathedral_passage_blocked:It looks slightly out of place.|It has been moved to the side, exposing a trapdoor.}
 -> cathedral_options
 = cathedral_options
   + Investigate the pipe organ.
@@ -136,8 +138,8 @@ One end of the cathedral is occupied by an elaborate pipe organ.  Nearer to the 
     You move the coffin slightly, revealing a trapdoor in the floor beneath it.
     ~ cathedral_passage_blocked = false
     -> cathedral_options
-  + {not cathedral_passage_blocked}[Open the trapdoor.]
-    The trapdoor seems to be locked from the other side.
+  + {not cathedral_passage_blocked}[Investigate the trapdoor.]
+    {tunnel_flooded:The trapdoor leads to a flooded tunnel.|The trapdoor seems to be locked from the other side.}
     -> cathedral_options
   + Leave the cathedral.
     -> Kneiphof
@@ -237,7 +239,12 @@ In the floor is a trapdoor leading to a dark tunnel.
 The tunnel is long and damp, and leads quite a ways to the west.  The walls are lined with sarcophagi; this appears to be some sort of catacomb.
 Eventually you reach the end of the passage.  If you had to guess, you're somewhere under the cathedral.  There is a trapdoor in the roof above you.
 Behind you, the passage begins to fill with water.
- * [Open the trapdoor]
+~ tunnel_flooded = true
+ * {not cathedral_passage_blocked}[Open the trapdoor]
+   You climb out of the trapdoor, leaving behind the flooding catacombs.  You find yourself inside the Cathedral.
+   ** Continue...
+      -> Kneiphof.cathedral_interior
+ * {cathedral_passage_blocked}[Open the trapdoor]
  -
 There seems to be something heavy on top of the trap door, preventing it from opening. //TODO Make trapdoor openable at Cathedral
  * Oh no...
@@ -344,7 +351,12 @@ You stand before an arched bridge of ancient masonry.<>
 You stand before an imposing suspension bridge of great iron girders, held together by giant rivets and covered in a red layer of rust.<>
 {bridge_crossed?A:  The path is barred by a heavy iron gate.}
   * [Cross the bridge]
-    You begin to cross the iron bridge.
+    You begin to cross the iron bridge.  About halfway across you spot a small golden key lying on the ground.
+    ** [Grab it.]
+        You grab the key.
+        ~cathedral_key = true
+    ** [Leave it.]
+    --  
     As you step off the other side a gate slams shut behind you with a heavy clang.
     ~bridge_crossed += A     
     # BRIDGE_CROSSED: bridge_a
