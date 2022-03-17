@@ -278,6 +278,8 @@ To the north east, a rope bridge leads to the island of Lomse.
  + [Look around]
    -> long
  + {long}Go to...[] #CLEAR
+ ++ the jetty
+    -> ferryman
  ++ the stone bridge
     -> Bridges.stone(->South_Shore, ->Kneiphof)
  ++ the brick bridge
@@ -285,6 +287,23 @@ To the north east, a rope bridge leads to the island of Lomse.
  ++ the rope bridge
     -> Bridges.rope(->South_Shore, ->Lomse)
  ++ [nowhere] -> South_Shore
+
+= ferryman
+# CLEAR
+The jetty creaks as the murmuring currents of the Pregel rush past.
+
+A cloaked figure stands next to a small rowboat.  As you approach he says nothing, but holds out a pale hand for payment. {drachmas < 1:Alas, you have nothing to pay him with.}
+++ [Go back.] -> South_Shore
+++ {drachmas > 0}Pay the ferryman.
+    You place the ancient coin you found in the ferryman's outstretched hand. Wordlessly, he leads you into his boat and begins to row you away from the jetty.
+    As you cross the river, you glance <>
+    *** down[...] into the stygian depths of the Pregel, where nothing but endless darkness meets your gaze
+    *** up[...] at the underside of the wooden bridge connecting Kneiphof and Lomse.  The ancient wood is covered in carvings of wild men, dancing satyrs, and strange forms that you can't quite make sense of.
+    --- Eventually, the boat arrives on the North Shore and the hooded ferryman silently gestures for you to leave.  You step out of the small boat and onto a stone walkway next to the river.
+    *** Thank the ferryman.
+    --- You turn to thank the ferryman, but he is already gone.
+    *** Continue...
+        -> North_Shore
 
 === game_over(island) ======================================================
 In the distance, an iron bell tolls mournfully.  You realize that you are trapped here, with no way to reach the remaining uncrossed bridges{island != kneiphof: or return to the Cathedral}.
