@@ -296,10 +296,8 @@ A cloaked figure stands next to a small rowboat.  As you approach he says nothin
 ++ [Go back.] -> South_Shore
 ++ {drachmas > 0}Pay the ferryman.
     You place the ancient coin you found in the ferryman's outstretched hand. Wordlessly, he leads you into his boat and begins to row you away from the jetty.
-    As you cross the river, you glance <>
-    *** down[...] into the stygian depths of the Pregel, where nothing but endless darkness meets your gaze
-    *** up[...] at the underside of the wooden bridge connecting Kneiphof and Lomse.  The ancient wood is covered in carvings of wild men, dancing satyrs, and strange forms that you can't quite make sense of.
-    --- Eventually, the boat arrives on the North Shore and the hooded ferryman silently gestures for you to leave.  You step out of the small boat and onto a stone walkway next to the river.
+    As you cross the river, you glance {shuffle:down into the stygian depths of the Pregel, where nothing but endless darkness meets your gaze.|up at the underside of the wooden bridge connecting Kneiphof and Lomse.  The ancient wood is covered in carvings of wild men, dancing satyrs, and strange forms that you can't quite make sense of.}
+    Eventually, the boat arrives on the North Shore and the hooded ferryman silently gestures for you to leave.  You step out of the small boat and onto a stone walkway next to the river.
     *** [Thank the ferryman.]
     --- You turn to thank the ferryman, but he is already gone.
     *** Continue...
