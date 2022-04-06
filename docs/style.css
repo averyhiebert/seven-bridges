@@ -8,6 +8,7 @@ a {
    color:#d95763;
    text-decoration: none;
    font-weight:bold;
+   cursor:pointer;
 }
 
 a:hover{

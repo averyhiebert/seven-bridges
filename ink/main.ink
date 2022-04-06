@@ -30,6 +30,7 @@ VAR drachmas = 0
 // TODO more flavour text
 // TODO colour/styling on interactables?
 
+CONST cancel = "(cancel)"
 
 -> prologue
 
@@ -62,7 +63,7 @@ Long description here
  + [Go to...]
  ++ Some bridge
     -> Bridges.iron(->Example, ->Example)
- ++ [nowhere] -> Example // Cancel? Never mind? What phrasing is best?
+ ++ [{cancel}] -> Example // Cancel? Never mind? What phrasing is best?
 
 
 // TODO: Maybe don't automatically look around when you get somewhere,
@@ -96,17 +97,17 @@ To the east, a wooden bridge leads to the island of Lomse.
  + {long}Go to...[] #CLEAR
  ++ the Cathedral
     -> cathedral_door
- ++ the bridge of iron
+ ++ the iron bridge (to North Shore)
     -> Bridges.iron(-> Kneiphof, ->North_Shore)
- ++ the bridge of marble
+ ++ the marble bridge (to North Shore)
     -> Bridges.marble(->Kneiphof, ->North_Shore)
- ++ the wooden bridge
+ ++ the wooden bridge (to Lomse)
     -> Bridges.wooden(->Kneiphof, ->Lomse)
- ++ the bridge of brick
+ ++ the brick bridge (to South Shore)
     -> Bridges.brick(->Kneiphof, ->South_Shore)
- ++ the bridge of stone
+ ++ the stone bridge (to South Shore)
     -> Bridges.stone(->Kneiphof, ->South_Shore)
- ++ [nowhere] -> Kneiphof
+ ++ [{cancel}] -> Kneiphof
 
 = cathedral_door
 # CLEAR
@@ -124,16 +125,17 @@ The door is elaborately carved with apocalyptic imagery. It is {cathedral_locked
     -> cathedral_door_options
   + {not cathedral_locked}Enter the cathedral.
     -> cathedral_interior
-  + [Go back]
+  + [Go back.]
     -> Kneiphof
 
 = cathedral_interior
 #CLEAR
 The cathedral is magnificent.  Colourful windows reach up to vaulted ceilings high overhead.
 The far end of the cathedral is occupied by an elaborate pipe organ.  Nearer to the entrance, a cedar coffin lies in an alcove.  {cathedral_passage_blocked:It looks slightly out of place.|It has been moved to the side, exposing a trapdoor.}
--> cathedral_options
-= cathedral_options
+- (cathedral_options)
   + Investigate the pipe organ.
+    The pipe organ is a massive collection of pipes, with a sprawling, almost organic appearance.
+    -> cathedral_options
   + {cathedral_passage_blocked}[Investigate the coffin.]
     You move the coffin slightly, revealing a trapdoor in the floor beneath it.
     ~ cathedral_passage_blocked = false
@@ -163,13 +165,13 @@ To the southeast, a drawbridge leads to the island of Lomse.  The bridge is {bri
  + [Look around]
    -> long
  + {long}Go to...[] #CLEAR
- ++ the bridge of iron
+ ++ the iron bridge (to North Shore)
     -> Bridges.iron(->North_Shore, -> Kneiphof)
- ++ the bridge of marble
+ ++ the marble bridge (to North Shore)
     -> Bridges.marble(->North_Shore, -> Kneiphof)
- ++ the drawbridge
+ ++ the drawbridge (to Lomse)
     -> Bridges.drawbridge(->North_Shore, ->Lomse)
- ++ [nowhere] -> North_Shore
+ ++ [{cancel}] -> North_Shore
 
 
 === Lomse =======================================================
@@ -180,7 +182,7 @@ You are on the island of Lomse. #CLEAR
 
 = long
 #CLEAR
-You stand in a graveyard on the marshy, sparsely inhabited island of Lomse.  Grim grey headstones and scraggly trees stretch into the misty distance.
+You are in a graveyard on the marshy, sparsely inhabited island of Lomse.  Grim grey headstones and scraggly trees stretch into the misty distance.
 
 Nearby is a lonely ossuary.
 
@@ -197,13 +199,13 @@ To the west, a wooden bridge connects to the island of Kneiphof.
  + {long}Go to...[] #CLEAR
  ++ the ossuary
     -> ossuary_exterior
- ++ the drawbridge
+ ++ the drawbridge (to North Shore)
     -> Bridges.drawbridge(->Lomse, ->North_Shore)
- ++ the wooden bridge
+ ++ the wooden bridge (to Kneiphof)
     -> Bridges.wooden(->Lomse, ->Kneiphof)
- ++ the rope bridge
+ ++ the rope bridge (to South Shore)
     -> Bridges.rope(->Lomse, ->South_Shore)
- ++ [nowhere] -> Lomse
+ ++ [{cancel}] -> Lomse
 
 = ossuary_exterior
 #CLEAR
@@ -228,7 +230,7 @@ The oaken door is {ossuary_locked:locked{ossuary_key:, but the iron key you foun
  
 = ossuary_interior
 #CLEAR
-You are inside a dark stone room.  Against each wall is a tightly-packed stack of human bones.  The door casts a beam of light on a pile of skulls grinning against the back wall.
+You are in a dark stone room.  Against each wall is a tightly-packed stack of human bones.  The door casts a beam of light on a pile of skulls grinning against the back wall.
 In the floor is a trapdoor leading to a dark tunnel.
  + Enter the tunnel.
    -> tunnel_from_ossuary
@@ -262,7 +264,7 @@ You are on the South Shore of the river Pregel. #CLEAR
 
 = long
 #CLEAR
-You stand on the South Shore of the river Pregel.  Further south, many narrow cobbled streets wind maze-like between tall buildings leaning at strange angles.  The streets are dark and empty.
+You are on the South Shore of the river Pregel.  Further south, many narrow cobbled streets wind maze-like between tall buildings leaning at strange angles.  The streets are dark and empty.
 
 A wooden jetty juts out into the river.  At the end stands a silent, grey-cloaked figure.
 
@@ -270,23 +272,19 @@ To the north west, a bridge of stone and {bridge_crossed?F:the remains of }a bri
 
 To the north east, a rope bridge leads to the island of Lomse.
 // TODO DENSE MAZE OF BUILDINGS
-
-
--> options
-
-= options
+- (options)
  + [Look around]
    -> long
  + {long}Go to...[] #CLEAR
  ++ the jetty
     -> ferryman
- ++ the stone bridge
+ ++ the stone bridge (to Kneiphof)
     -> Bridges.stone(->South_Shore, ->Kneiphof)
- ++ the brick bridge
+ ++ the brick bridge (to Kneiphof)
     -> Bridges.brick(->South_Shore, ->Kneiphof)
- ++ the rope bridge
+ ++ the rope bridge (to Lomse)
     -> Bridges.rope(->South_Shore, ->Lomse)
- ++ [nowhere] -> South_Shore
+ ++ [{cancel}] -> South_Shore
 
 = ferryman
 # CLEAR
@@ -306,7 +304,7 @@ A cloaked figure stands next to a small rowboat.  As you approach he says nothin
 === game_over(island) ======================================================
 In the distance, an iron bell tolls mournfully.  You realize that you are trapped here, with no way to reach the remaining uncrossed bridges{island != kneiphof: or return to the Cathedral}.
 Unless...
-   * [Attempt to swim]
+   * [Attempt to swim.]
      You leap into the Pregel river in a desperate final attempt to fulfill your task.
      You are immediately overwhelmed by the cold and the current.  The world fades into darkness as you sink into the inky depths.
    -
@@ -339,7 +337,7 @@ You stand before {bridge_crossed?F:the crumbling remains of a brick bridge|a bri
     ** Continue...
     --
     -> to
-  + [Go back] -> from
+  + [Go back.] -> from
 
 = rope(-> from, -> to)
 #CLEAR
@@ -352,7 +350,7 @@ You stand before a narrow rope bridge hanging low over the rushing river.<>
     ** Continue...
     --
     -> to
-  + [Go back] -> from
+  + [Go back.] -> from
 
 = stone(-> from, -> to)
 #CLEAR
@@ -385,7 +383,7 @@ You stand before an imposing suspension bridge of great iron girders, held toget
     ** Continue...
     --
     -> to
-  + [Go back] -> from
+  + [Go back.] -> from
 
 = marble(-> from, -> to)
 #CLEAR
@@ -418,7 +416,7 @@ You stand before a drawbridge, a marvel of modern engineering.<>
     ** Continue...
     --
     -> to
-  + [Go back] -> from
+  + [Go back.] -> from
 
 = wooden(-> from, -> to)
 #CLEAR
@@ -432,7 +430,7 @@ You stand before a rickety wooden bridge.<>
     ** Continue...
     --
    -> to 
- + [Go back] -> from
+ + [Go back.] -> from
 
 
 

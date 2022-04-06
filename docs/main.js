@@ -123,10 +123,9 @@
             // Create paragraph with anchor element
             var choiceParagraphElement = document.createElement('p');
             choiceParagraphElement.classList.add("choice");
-            //choiceParagraphElement.innerHTML = `<a href='#'>${choice.text}</a>`
-            // No href = no visible link at bottom of browser
-            //  (BUT it also means hover cursor does not look like a finger)
-            //  (not sure which is less annoying)
+
+            // Note (AVERY): No href = no visible link at bottom of browser
+            //  (I also set cursor:pointer in css)
             choiceParagraphElement.innerHTML = `<a>${choice.text}</a>`
             storyContainer.appendChild(choiceParagraphElement);
 
