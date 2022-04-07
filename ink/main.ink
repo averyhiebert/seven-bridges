@@ -231,8 +231,8 @@ The oaken door is {ossuary_locked:locked{ossuary_key:, but the iron key you foun
 = ossuary_interior
 #CLEAR
 You are in a dark stone room.  Against each wall is a tightly-packed stack of human bones.  The door casts a beam of light on a pile of skulls grinning against the back wall.
-In the floor is a trapdoor leading to a dark tunnel.
- + Enter the tunnel.
+In the floor is a trapdoor leading to a dark tunnel{tunnel_flooded: filled with muddy water.|.}
+ * Enter the tunnel.
    -> tunnel_from_ossuary
  + [Go back.] -> Lomse
 
