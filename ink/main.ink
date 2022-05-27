@@ -165,9 +165,9 @@ To the southeast, a drawbridge leads to the island of Lomse.  The bridge is {bri
  + [Look around]
    -> long
  + {long}Go to...[] #CLEAR
- ++ the iron bridge (to North Shore)
+ ++ the iron bridge (to Kneiphof)
     -> Bridges.iron(->North_Shore, -> Kneiphof)
- ++ the marble bridge (to North Shore)
+ ++ the marble bridge (to Kneiphof)
     -> Bridges.marble(->North_Shore, -> Kneiphof)
  ++ the drawbridge (to Lomse)
     -> Bridges.drawbridge(->North_Shore, ->Lomse)
@@ -243,7 +243,7 @@ Eventually you reach the end of the passage.  If you had to guess, you're somewh
 Behind you, the passage begins to fill with water.
 ~ tunnel_flooded = true
  * {not cathedral_passage_blocked}[Open the trapdoor]
-   You climb out of the trapdoor, leaving behind the flooding catacombs.  You find yourself inside the Cathedral.
+   You climb out of the trapdoor, leaving behind the flooding catacombs.  You find yourself inside the Cathedral. # SET_BG: kneiphof.png
    ** Continue...
       -> Kneiphof.cathedral_interior
  * {cathedral_passage_blocked}[Open the trapdoor]
@@ -266,7 +266,7 @@ You are on the South Shore of the river Pregel. #CLEAR
 #CLEAR
 You are on the South Shore of the river Pregel.  Further south, many narrow cobbled streets wind maze-like between tall buildings leaning at strange angles.  The streets are dark and empty.
 
-A wooden jetty juts out into the river.  At the end stands a silent, grey-cloaked figure.
+A wooden jetty juts out into the river.{not take_ferry:  At the end stands a silent, grey-cloaked figure.}
 
 To the north west, a bridge of stone and {bridge_crossed?F:the remains of }a bridge of brick lead to the island of Kneiphof.
 
@@ -276,7 +276,7 @@ To the north east, a rope bridge leads to the island of Lomse.
  + [Look around]
    -> long
  + {long}Go to...[] #CLEAR
- ++ the jetty
+ ++ {not take_ferry}the jetty
     -> ferryman
  ++ the stone bridge (to Kneiphof)
     -> Bridges.stone(->South_Shore, ->Kneiphof)
@@ -292,7 +292,7 @@ The jetty creaks as the murmuring currents of the Pregel rush past.
 
 A cloaked figure stands next to a small rowboat.  As you approach he says nothing, but holds out a pale hand for payment. {drachmas < 1:Alas, you have nothing to pay him with.}
 ++ [Go back.] -> South_Shore
-++ {drachmas > 0}Pay the ferryman.
+++ (take_ferry){drachmas > 0}Pay the ferryman.
     You place the ancient coin you found in the ferryman's outstretched hand. Wordlessly, he leads you into his boat and begins to row you away from the jetty.
     As you cross the river, you glance {shuffle:down into the stygian depths of the Pregel, where nothing but endless darkness meets your gaze.|up at the underside of the wooden bridge connecting Kneiphof and Lomse.  The ancient wood is covered in carvings of wild men, dancing satyrs, and strange forms that you can't quite make sense of.}
     Eventually, the boat arrives on the North Shore and the hooded ferryman silently gestures for you to leave.  You step out of the small boat and onto a stone walkway next to the river.
