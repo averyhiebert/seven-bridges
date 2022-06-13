@@ -40,42 +40,13 @@ As you awake, a strange voice echoes in your head.
 "You will not be free until you can cross each bridge exactly once and return to your starting point outside the Cathedral."
 
 * [Continue...]
-  -> Kneiphof.long
+  -> Kneiphof
 
-
-=== Example ===
-#CLEAR
-// Example of the format I'm using for islands/locations.
-Short description here
--> options
-
-= long
-#CLEAR
-Long description here
-
-(multiple paragraphs)
--> options
-
-= options
- + [Look around]
-   -> long
- + [Go to...]
- ++ Some bridge
-    -> Bridges.iron(->Example, ->Example)
- ++ [{cancel}] -> Example // Cancel? Never mind? What phrasing is best?
-
-
-// TODO: Maybe don't automatically look around when you get somewhere,
-//  but make all go-to locations conditional on having seen them at least once.
 
 === Kneiphof ====================================================
 # SET_BG: kneiphof.png
-//You are on the island of Kneiphof. #CLEAR
+# CLEAR
 -> check_win_loss(kneiphof) ->
--> long
-
-= long
-#CLEAR
 You are standing in the cobbled streets of the island of Kneiphof{intro:, in the city of Konigsberg}.  The only sound is the croaking and flitting of crows.  //TODO Randomize flavourtext
 {intro:The windows are dark.  The streets are empty.  The glow of twilight (or perhaps sunrise) lingers in the sky, as though frozen in time.}
 ~intro = false
@@ -105,118 +76,107 @@ To the east, a ((wooden bridge)) leads to the island of Lomse.
 = cathedral_door
 # CLEAR
 The cathedral is tall and imposing, with a bell tower rising above an asymmetric peaked roof.
-The door is elaborately carved with apocalyptic imagery. It is {cathedral_locked:locked{cathedral_key:, but the golden key you found fits perfectly.|.}|unlocked.}
--> cathedral_door_options
-= cathedral_door_options
-  + {cathedral_key and cathedral_locked}[Unlock the door.]
-    The cathedral door is now unlocked.
+The door is elaborately carved with apocalyptic imagery.  It is <>
+{
+-cathedral_locked and cathedral_key:
+    ((locked)), but the golden key you found fits perfectly.
+-cathedral_locked:
+    locked.
+-else:
+    ((unlocked)).
+}
++ {cathedral_locked and cathedral_key}((locked))
     ~ cathedral_locked = false
-    -> cathedral_door_options
-  + {cathedral_key and not cathedral_locked}[Lock the door.]
-    The cathedral door is now locked.
+    -> cathedral_door
++ {cathedral_key and not cathedral_locked}((unlocked))
     ~ cathedral_locked = true
-    -> cathedral_door_options
-  + {not cathedral_locked}Enter the cathedral.
+    -> cathedral_door
++ {not cathedral_locked}[Enter the cathedral.]
     -> cathedral_interior
-  + [Go back.]
++ [Go back.]
     -> Kneiphof
 
 = cathedral_interior
 #CLEAR
 The cathedral is magnificent.  Colourful windows reach up to vaulted ceilings high overhead.
-The far end of the cathedral is occupied by an elaborate pipe organ.  Nearer to the entrance, a cedar coffin lies in an alcove.  {cathedral_passage_blocked:It looks slightly out of place.|It has been moved to the side, exposing a trapdoor.}
-- (cathedral_options)
-  + [Investigate the pipe organ.]
-    The pipe organ is a massive collection of pipes, with a sprawling, almost organic appearance.
-    -> cathedral_options
-  + {cathedral_passage_blocked}[Investigate the coffin.]
+The far end of the cathedral is occupied by an elaborate {investigated_organ:pipe organ, a massive collection of pipes with a sprawling, almost organic appearance|((pipe organ))}.
+Nearer to the entrance, a <>
+    {cathedral_passage_blocked:
+        ((cedar coffin)) lies in an alcove.
+    -else:
+        cedar coffin lies in an alcove. It has been moved to the side, exposing a ((trapdoor)).
+    }
+ * (investigated_organ)((pipe organ))
+    -> cathedral_interior
+ * {cathedral_passage_blocked}[((cedar coffin))]
     You move the coffin slightly, revealing a trapdoor in the floor beneath it.
     ~ cathedral_passage_blocked = false
-    -> cathedral_options
-  + {not cathedral_passage_blocked}[Investigate the trapdoor.]
+    ++ [Ok] // TODO better handling
+        -> cathedral_interior
+ + {not cathedral_passage_blocked}[((trapdoor))]
     {tunnel_flooded:The trapdoor leads to a flooded tunnel.|The trapdoor seems to be locked from the other side.}
-    -> cathedral_options
-  + Leave the cathedral.
+    ++ [Ok] // TODO better handling
+        -> cathedral_interior
+ + Leave the cathedral.
     -> Kneiphof
 
 === North_Shore ======================================================
 # SET_BG: north_shore.png
-You are on the North Shore of the river Pregel. #CLEAR
+# CLEAR
 -> check_win_loss(north) ->
--> options
-
-= long
-#CLEAR
 You are on the North Shore of the river Pregel.  The fortifications of Konigsberg Castle tower over you.  Moss clings to the cracks in the ancient walls.
 
-To the southwest, a bridge of iron and a bridge of marble lead to the island of Kneiphof.
+To the southwest, a ((bridge of iron)) and a ((bridge of marble)) lead to the island of Kneiphof.
 
-To the southeast, a drawbridge leads to the island of Lomse.  The bridge is {bridge_crossed?C: drawn up| down}.
--> options
+To the southeast, a ((drawbridge)) leads to the island of Lomse.  The bridge is {bridge_crossed?C: drawn up| down}.
 
-= options
- + [Look around]
-   -> long
- + {long}Go to...[] #CLEAR
- ++ the iron bridge (to Kneiphof)
+ + ((bridge of iron))
     -> Bridges.iron(->North_Shore, -> Kneiphof)
- ++ the marble bridge (to Kneiphof)
+ + ((bridge of marble))
     -> Bridges.marble(->North_Shore, -> Kneiphof)
- ++ the drawbridge (to Lomse)
+ + ((drawbridge))
     -> Bridges.drawbridge(->North_Shore, ->Lomse)
- ++ [{cancel}] -> North_Shore
 
 
 === Lomse =======================================================
 # SET_BG: lomse.png
-You are on the island of Lomse. #CLEAR
+# CLEAR
+You are on the island of Lomse.
 -> check_win_loss(lomse) ->
--> options
 
-= long
-#CLEAR
 You are in a graveyard on the marshy, sparsely inhabited island of Lomse.  Grim grey headstones and scraggly trees stretch into the misty distance.
 
-Nearby is a lonely ossuary.
+Nearby is a lonely ((ossuary)).
 
-A drawbridge leads to the North Shore.  The bridge is {bridge_crossed?C: drawn up| down}.
+A ((drawbridge)) leads to the North Shore.  The bridge is {bridge_crossed?C: drawn up| down}.
 
-A rope bridge extends precariously to the South Shore.
+A ((rope bridge)) extends precariously to the South Shore.
 
-To the west, a wooden bridge connects to the island of Kneiphof.
--> options
+To the west, a ((wooden bridge)) connects to the island of Kneiphof.
 
-= options
- + [Look around]
-   -> long
- + {long}Go to...[] #CLEAR
- ++ the ossuary
+ + ((ossuary))
     -> ossuary_exterior
- ++ the drawbridge (to North Shore)
+ + ((drawbridge))
     -> Bridges.drawbridge(->Lomse, ->North_Shore)
- ++ the wooden bridge (to Kneiphof)
+ + ((wooden bridge))
     -> Bridges.wooden(->Lomse, ->Kneiphof)
- ++ the rope bridge (to South Shore)
+ + ((rope bridge))
     -> Bridges.rope(->Lomse, ->South_Shore)
- ++ [{cancel}] -> Lomse
 
 = ossuary_exterior
 #CLEAR
-// TODO Lock/unlock the door?
-The ossuary is a plain stone building.  The only adornment is a Latin inscription over the entrance.
-The oaken door is {ossuary_locked:locked{ossuary_key:, but the iron key you found fits the lock perfectly|}|unlocked}. ->ossuary_options
-= ossuary_options
- + {ossuary_locked and ossuary_key}[Unlock the ossuary.]
-   The ossuary is now unlocked.
+The ossuary is a plain stone building.  The only adornment is a Latin {read_inscription:inscription over the entrance: MELIUS EST IRE AD DOMUM LUCTUS QUAM AD DOMUM CONVIVII|((inscription)) over the entrance}.
+The oaken door is {ossuary_locked:locked{ossuary_key:, but the iron key you found fits the lock perfectly|}|unlocked}.
+
+// TODO Proper lock/unlock behaviour, like the cathedral.
+ + {ossuary_locked and ossuary_key}Unlock the ossuary.
    ~ ossuary_locked = false
-   -> ossuary_options
- + {not ossuary_locked}[Lock the ossuary.]
-   The ossuary is now locked.
+   -> ossuary_exterior
+ + {not ossuary_locked}Lock the ossuary.
    ~ ossuary_locked = true
-   -> ossuary_options
- * [Read the inscription.]
-   The inscription says MELIUS EST IRE AD DOMUM LUCTUS QUAM AD DOMUM CONVIVII.
-   -> ossuary_options
+   -> ossuary_exterior
+ * (read_inscription)((inscription))
+   -> ossuary_exterior
  + {not ossuary_locked}Enter the ossuary.
    -> ossuary_interior
  + [Go back.] -> Lomse
@@ -224,10 +184,10 @@ The oaken door is {ossuary_locked:locked{ossuary_key:, but the iron key you foun
 = ossuary_interior
 #CLEAR
 You are in a dark stone room.  Against each wall is a tightly-packed stack of human bones.  The door casts a beam of light on a pile of skulls grinning against the back wall.
-In the floor is a trapdoor leading to a dark tunnel{tunnel_flooded: filled with muddy water.|.}
- * Enter the tunnel.
+In the floor is a trapdoor leading to a {tunnel_flooded:dark tunnel filled with muddy water.|((dark tunnel)).}
+ * ((dark tunnel))
    -> tunnel_from_ossuary
- + [Go back.] -> Lomse
+ + [Leave.] -> ossuary_exterior
 
 = tunnel_from_ossuary
 #CLEAR
@@ -235,11 +195,11 @@ The tunnel is long and damp, and leads quite a ways to the west.  The walls are 
 Eventually you reach the end of the passage.  If you had to guess, you're somewhere under the cathedral.  There is a trapdoor in the roof above you.
 Behind you, the passage begins to fill with water.
 ~ tunnel_flooded = true
- * {not cathedral_passage_blocked}[Open the trapdoor]
+ * {not cathedral_passage_blocked}[Open the trapdoor] # CLEAR
    You climb out of the trapdoor, leaving behind the flooding catacombs.  You find yourself inside the Cathedral. # SET_BG: kneiphof.png
    ** Continue...
       -> Kneiphof.cathedral_interior
- * {cathedral_passage_blocked}[Open the trapdoor]
+ * {cathedral_passage_blocked}[Open the trapdoor] # CLEAR
  -
 There seems to be something heavy on top of the trap door, preventing it from opening. //TODO Make trapdoor openable at Cathedral
  * Oh no...
@@ -251,48 +211,43 @@ There seems to be something heavy on top of the trap door, preventing it from op
 
 === South_Shore ==================================================
 # SET_BG: south_shore.png
-You are on the South Shore of the river Pregel. #CLEAR
+# CLEAR
 -> check_win_loss(south) ->
--> options
-
-= long
-#CLEAR
 You are on the South Shore of the river Pregel.  Further south, many narrow cobbled streets wind maze-like between tall buildings leaning at strange angles.  The streets are dark and empty.
 
-A wooden jetty juts out into the river.{not take_ferry:  At the end stands a silent, grey-cloaked figure.}
+A {take_ferry:wooden jetty|((wooden jetty))} juts out into the river.{not take_ferry:  At the end stands a silent, grey-cloaked figure.}
 
-To the north west, a bridge of stone and {bridge_crossed?F:the remains of }a bridge of brick lead to the island of Kneiphof.
+To the north west, a ((bridge of stone)) and {bridge_crossed?F:the remains of }a ((bridge of brick)) lead to the island of Kneiphof.
 
-To the north east, a rope bridge leads to the island of Lomse.
+To the north east, a ((rope bridge)) leads to the island of Lomse.
 // TODO DENSE MAZE OF BUILDINGS
-- (options)
- + [Look around]
-   -> long
- + {long}Go to...[] #CLEAR
- ++ {not take_ferry}the jetty
+ + {not take_ferry}((wooden jetty))
     -> ferryman
- ++ the stone bridge (to Kneiphof)
+ + ((bridge of stone))
     -> Bridges.stone(->South_Shore, ->Kneiphof)
- ++ the brick bridge (to Kneiphof)
+ + ((bridge of brick))
     -> Bridges.brick(->South_Shore, ->Kneiphof)
- ++ the rope bridge (to Lomse)
+ + ((rope bridge))
     -> Bridges.rope(->South_Shore, ->Lomse)
- ++ [{cancel}] -> South_Shore
 
 = ferryman
 # CLEAR
 The jetty creaks as the murmuring currents of the Pregel rush past.
 
 A cloaked figure stands next to a small rowboat.  As you approach he says nothing, but holds out a pale hand for payment. {drachmas < 1:Alas, you have nothing to pay him with.}
-++ [Go back.] -> South_Shore
-++ (take_ferry){drachmas > 0}Pay the ferryman. 
++ [Go back.] -> South_Shore
+* (take_ferry){drachmas > 0}Pay the ferryman. 
     #CLEAR
     You place the ancient coin you found in the ferryman's outstretched hand. Wordlessly, he leads you into his boat and begins to row you away from the jetty.
+    ** [Wait...]
+    -- # CLEAR
     As you cross the river, you glance {shuffle:down into the stygian depths of the Pregel, where nothing but endless darkness meets your gaze.|up at the underside of the wooden bridge connecting Kneiphof and Lomse.  The ancient wood is covered in carvings of wild men, dancing satyrs, and strange forms that you can't quite make sense of.}
+    ** [Wait...]
+    -- # CLEAR
     Eventually, the boat arrives on the North Shore and the hooded ferryman silently gestures for you to leave.  You step out of the small boat and onto a stone walkway next to the river.
-    *** [Thank the ferryman.]
-    --- You turn to thank the ferryman, but he is already gone.
-    *** Continue...
+    ** [Thank the ferryman.]
+    -- You turn to thank the ferryman, but he is already gone.
+    ** Continue...
         -> North_Shore
 
 === game_over(island) ======================================================
@@ -303,7 +258,7 @@ Unless...
      You are immediately overwhelmed by the cold and the current.  The world fades into darkness as you sink into the inky depths.
    -
    // TODO Varied flavour text
-   * Try again...
+   * Your penance is not yet over...
      # RESTART
    -> END
 
@@ -321,7 +276,7 @@ You stand before {bridge_crossed?F:the crumbling remains of a brick bridge|a bri
   * [Cross the bridge]
     You start to cross the bridge.  About halfway across you spot a large iron key lying on the ground.
     ** [Grab it.]
-        You grab the key.
+        You grab the key. # CLEAR
         ~ossuary_key = true
     --  
     As you reach the other side and step off the bridge you hear the wailing of a far-off wind.  The bridge begins to age rapidly.  The bricks crumble as they are overtaken by moss, erosion, and the unrelenting march of time.  Soon, only an impassible ruin remains.
@@ -366,7 +321,7 @@ You stand before an imposing suspension bridge of great iron girders, held toget
   * [Cross the bridge]
     You begin to cross the iron bridge.  About halfway across you spot a small golden key lying on the ground.
     ** [Grab it.]
-        You grab the key.
+        You grab the key. # CLEAR
         ~cathedral_key = true
     --  
     As you step off the other side a gate slams shut behind you with a heavy clang.
@@ -384,7 +339,7 @@ You stand before a marble bridge in classical Doric style.<>
   * [Cross the bridge]
     You start to walk across the marble bridge.  Halfway across you spot something glinting on the ground.
     ** [Grab it.]
-        You pick up the object.  It appears to be some sort of coin, irregularly shaped and bearing an inscription in ancient Greek.
+        You pick up the object.  It appears to be some sort of coin, irregularly shaped and bearing an inscription in ancient Greek. #CLEAR
         ~drachmas += 1
     --
     As you reach the other side of the bridge the statues begin to move, stiffly and clumsily but with a sense of purpose.  They climb down onto the bridge behind you, barring the way back.
