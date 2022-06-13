@@ -105,7 +105,25 @@
 
             // Create paragraph element (initially hidden)
             var paragraphElement = document.createElement('p');
-            paragraphElement.innerHTML = paragraphText;
+
+            // CUSTOM (AVERY) - extract ((links)) from paragraph text
+            var items = paragraphText.split(/(\(\(.*?\)\))/)
+
+
+            // Add text & link child nodes.
+            for (i in items){
+                if (parseInt(i) % 2 == 0){
+                    // Should not be a link 
+                    paragraphElement.appendChild(document.createTextNode(items[i]));
+                }else{
+                    // Should be a link
+                    var parsed = parse_raw_link(items[i])
+                    var link_tag = document.createElement("a")
+                    link_tag.innerHTML = parsed[0] // Link text
+                    link_tag.id = parsed[1] // the id
+                    paragraphElement.appendChild(link_tag);
+                }
+            }
             storyContainer.appendChild(paragraphElement);
             
             // Add any custom classes derived from ink tags
@@ -119,22 +137,33 @@
 
         // Create HTML choices from ink choices
         story.currentChoices.forEach(function(choice) {
+            // CUSTOM (AVERY): First, check for ((inline options))
+            var override_link_element = null;
+            var parsed = parse_raw_link(choice.text);
+            if (parsed){
+                override_link_element = document.getElementById(parsed[1]);
+            }
 
-            // Create paragraph with anchor element
-            var choiceParagraphElement = document.createElement('p');
-            choiceParagraphElement.classList.add("choice");
+            var choiceAnchorEl = null;
+            if (!override_link_element){
+                // Create paragraph with anchor element
+                var choiceParagraphElement = document.createElement('p');
+                choiceParagraphElement.classList.add("choice");
 
-            // Note (AVERY): No href = no visible link at bottom of browser
-            //  (I also set cursor:pointer in css)
-            choiceParagraphElement.innerHTML = `<a>${choice.text}</a>`
-            storyContainer.appendChild(choiceParagraphElement);
+                // Note (AVERY): No href = no visible link at bottom of browser
+                //  (I also set cursor:pointer in css)
+                choiceParagraphElement.innerHTML = `<a>${choice.text}</a>`
+                storyContainer.appendChild(choiceParagraphElement);
 
-            // Fade choice in after a short delay
-            showAfter(delay, choiceParagraphElement);
-            delay += 200.0;
+                // Fade choice in after a short delay
+                showAfter(delay, choiceParagraphElement);
+                delay += 200.0;
 
-            // Click on choice
-            var choiceAnchorEl = choiceParagraphElement.querySelectorAll("a")[0];
+                // Click on choice
+                choiceAnchorEl = choiceParagraphElement.querySelectorAll("a")[0];
+            }else{
+                choiceAnchorEl = override_link_element;
+            }
             choiceAnchorEl.addEventListener("click", function(event) {
 
                 // Don't follow <a> link
@@ -304,6 +333,19 @@
     function showBridge(bridge_id){
         var bridge = document.getElementById(bridge_id);
         bridge.style.visibility = "visible";
+    }
+
+    function parse_raw_link(raw_link){
+        // Given raw link (i.e. in ((bracketed form)) ),
+        //  return the display text and formatted id
+        var m = raw_link.trim().match(/\(\((.*)\)\)/);
+        if (m){
+            var link_text = m[1];
+            var id_string = "op-" + link_text.replaceAll(/[^A-Za-z]/g,"-");
+            return [link_text, id_string];
+        }else{
+            return null;
+        }
     }
 
 })(storyContent);

@@ -23,7 +23,6 @@ VAR tunnel_flooded = false
 VAR drachmas = 0
 
 // TODO Constants for "look around," "go to...", etc.
-// TODO Winning
 // TODO change "shore" to "bank"
 // TODO some red herrings
 // TODO Maybe have to rob a grave
@@ -71,9 +70,9 @@ Long description here
 
 === Kneiphof ====================================================
 # SET_BG: kneiphof.png
-You are on the island of Kneiphof. #CLEAR
+//You are on the island of Kneiphof. #CLEAR
 -> check_win_loss(kneiphof) ->
--> options
+-> long
 
 = long
 #CLEAR
@@ -81,33 +80,27 @@ You are standing in the cobbled streets of the island of Kneiphof{intro:, in the
 {intro:The windows are dark.  The streets are empty.  The glow of twilight (or perhaps sunrise) lingers in the sky, as though frozen in time.}
 ~intro = false
 
-Above you looms the Konigsberg Cathedral.
+Above you looms the ((Konigsberg Cathedral)).
 // TODO Handle bridges already crossed.
-To the north, an iron bridge and a marble bridge cross over the river Pregel to the North Shore.
+To the north, an ((iron bridge)) and a ((marble bridge)) cross over the river Pregel to the North Shore.
 
-To the south, a bridge of stone and a bridge of brick stretch towards the South Shore.
+To the south, a ((bridge of stone)) and a ((bridge of brick)) stretch towards the South Shore.
 
-To the east, a wooden bridge leads to the island of Lomse.
+To the east, a ((wooden bridge)) leads to the island of Lomse.
 ~ island_seen += kneiphof
--> options
 
-= options
- + [Look around]
-   -> Kneiphof.long
- + {long}Go to...[] #CLEAR
- ++ the Cathedral
+ + ((Konigsberg Cathedral))
     -> cathedral_door
- ++ the iron bridge (to North Shore)
+ + ((iron bridge))
     -> Bridges.iron(-> Kneiphof, ->North_Shore)
- ++ the marble bridge (to North Shore)
+ + ((marble bridge))
     -> Bridges.marble(->Kneiphof, ->North_Shore)
- ++ the wooden bridge (to Lomse)
+ + ((wooden bridge))
     -> Bridges.wooden(->Kneiphof, ->Lomse)
- ++ the brick bridge (to South Shore)
+ + ((bridge of brick))
     -> Bridges.brick(->Kneiphof, ->South_Shore)
- ++ the stone bridge (to South Shore)
+ + ((bridge of stone))
     -> Bridges.stone(->Kneiphof, ->South_Shore)
- ++ [{cancel}] -> Kneiphof
 
 = cathedral_door
 # CLEAR
@@ -133,7 +126,7 @@ The door is elaborately carved with apocalyptic imagery. It is {cathedral_locked
 The cathedral is magnificent.  Colourful windows reach up to vaulted ceilings high overhead.
 The far end of the cathedral is occupied by an elaborate pipe organ.  Nearer to the entrance, a cedar coffin lies in an alcove.  {cathedral_passage_blocked:It looks slightly out of place.|It has been moved to the side, exposing a trapdoor.}
 - (cathedral_options)
-  + Investigate the pipe organ.
+  + [Investigate the pipe organ.]
     The pipe organ is a massive collection of pipes, with a sprawling, almost organic appearance.
     -> cathedral_options
   + {cathedral_passage_blocked}[Investigate the coffin.]
@@ -330,7 +323,6 @@ You stand before {bridge_crossed?F:the crumbling remains of a brick bridge|a bri
     ** [Grab it.]
         You grab the key.
         ~ossuary_key = true
-    ** [Leave it.]
     --  
     As you reach the other side and step off the bridge you hear the wailing of a far-off wind.  The bridge begins to age rapidly.  The bricks crumble as they are overtaken by moss, erosion, and the unrelenting march of time.  Soon, only an impassible ruin remains.
     ~ bridge_crossed += F
@@ -376,7 +368,6 @@ You stand before an imposing suspension bridge of great iron girders, held toget
     ** [Grab it.]
         You grab the key.
         ~cathedral_key = true
-    ** [Leave it.]
     --  
     As you step off the other side a gate slams shut behind you with a heavy clang.
     ~bridge_crossed += A     
@@ -395,7 +386,6 @@ You stand before a marble bridge in classical Doric style.<>
     ** [Grab it.]
         You pick up the object.  It appears to be some sort of coin, irregularly shaped and bearing an inscription in ancient Greek.
         ~drachmas += 1
-    ** [Leave it.]
     --
     As you reach the other side of the bridge the statues begin to move, stiffly and clumsily but with a sense of purpose.  They climb down onto the bridge behind you, barring the way back.
     ~bridge_crossed += B
