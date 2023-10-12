@@ -141,7 +141,6 @@ To the southeast, a ((drawbridge)) leads to the island of Lomse.  The bridge is 
 === Lomse =======================================================
 # SET_BG: lomse.png
 # CLEAR
-You are on the island of Lomse.
 -> check_win_loss(lomse) ->
 
 You are in a graveyard on the marshy, sparsely inhabited island of Lomse.  Grim grey headstones and scraggly trees stretch into the misty distance.
